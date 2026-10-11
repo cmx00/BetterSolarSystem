@@ -1,0 +1,248 @@
+{
+  "source": "BalancedGeneration.cs",
+  "source_sha256": "7014fd613be3abfac320331d08ff42e0007a7ddbaad10cbea0ed49a23dcdcce9",
+  "orbit_multiplier": 1.5,
+  "primaries": [
+    {
+      "name": "水星",
+      "english": "Mercury",
+      "theme": "Barren",
+      "radius": 200,
+      "orbit_base": 0.387,
+      "orbit": 0.5805,
+      "color": "#b4b5ab",
+      "moons": []
+    },
+    {
+      "name": "金星",
+      "english": "Venus",
+      "theme": "VolcanicAsh",
+      "radius": 300,
+      "orbit_base": 0.723,
+      "orbit": 1.0845,
+      "color": "#d9c19b",
+      "moons": []
+    },
+    {
+      "name": "地球",
+      "english": "Earth",
+      "theme": "Mediterranean",
+      "radius": 300,
+      "orbit_base": 1.0,
+      "orbit": 1.5,
+      "color": "#72c5bf",
+      "moons": [
+        {
+          "name": "月球",
+          "english": "Moon",
+          "theme": "Barren",
+          "radius": 200,
+          "orbit_base": 0.04,
+          "orbit": 0.06,
+          "birth": false
+        }
+      ]
+    },
+    {
+      "name": "火星",
+      "english": "Mars",
+      "theme": "Gobi",
+      "radius": 200,
+      "orbit_base": 1.524,
+      "orbit": 2.286,
+      "color": "#d38c6f",
+      "moons": []
+    },
+    {
+      "name": "谷神星",
+      "english": "Ceres",
+      "theme": "Barren",
+      "radius": 50,
+      "orbit_base": 2.77,
+      "orbit": 4.155,
+      "color": "#bcad8d",
+      "moons": []
+    },
+    {
+      "name": "木星",
+      "english": "Jupiter",
+      "theme": "GasGiant",
+      "radius": 3300,
+      "orbit_base": 5.203,
+      "orbit": 7.804500000000001,
+      "color": "#e6b77e",
+      "moons": [
+        {
+          "name": "木卫一",
+          "english": "Io",
+          "theme": "Lava",
+          "radius": 200,
+          "orbit_base": 0.115,
+          "orbit": 0.17250000000000001,
+          "birth": false
+        },
+        {
+          "name": "木卫二",
+          "english": "Europa",
+          "theme": "Prairie",
+          "radius": 300,
+          "orbit_base": 0.175,
+          "orbit": 0.26249999999999996,
+          "birth": true
+        },
+        {
+          "name": "木卫三",
+          "english": "Ganymede",
+          "theme": "IceGelisol",
+          "radius": 200,
+          "orbit_base": 0.245,
+          "orbit": 0.3675,
+          "birth": false
+        },
+        {
+          "name": "木卫四",
+          "english": "Callisto",
+          "theme": "IceGelisol2",
+          "radius": 200,
+          "orbit_base": 0.325,
+          "orbit": 0.48750000000000004,
+          "birth": false
+        },
+        {
+          "name": "木卫五",
+          "english": "Amalthea",
+          "theme": "Barren",
+          "radius": 50,
+          "orbit_base": 0.395,
+          "orbit": 0.5925,
+          "birth": false
+        }
+      ]
+    },
+    {
+      "name": "土星",
+      "english": "Saturn",
+      "theme": "GasGiant2",
+      "radius": 2800,
+      "orbit_base": 9.537,
+      "orbit": 14.305500000000002,
+      "color": "#d4bd94",
+      "moons": [
+        {
+          "name": "土卫二",
+          "english": "Enceladus",
+          "theme": "IceLake",
+          "radius": 200,
+          "orbit_base": 0.11,
+          "orbit": 0.165,
+          "birth": false
+        },
+        {
+          "name": "土卫六",
+          "english": "Titan",
+          "theme": "AshenGelisol",
+          "radius": 200,
+          "orbit_base": 0.19,
+          "orbit": 0.28500000000000003,
+          "birth": false
+        },
+        {
+          "name": "土卫八",
+          "english": "Iapetus",
+          "theme": "IceGelisol2",
+          "radius": 200,
+          "orbit_base": 0.28,
+          "orbit": 0.42000000000000004,
+          "birth": false
+        }
+      ]
+    },
+    {
+      "name": "天王星",
+      "english": "Uranus",
+      "theme": "IceGiant",
+      "radius": 1200,
+      "orbit_base": 19.191,
+      "orbit": 28.786499999999997,
+      "color": "#90cad4",
+      "moons": [
+        {
+          "name": "天卫三",
+          "english": "Titania",
+          "theme": "IceGelisol3",
+          "radius": 200,
+          "orbit_base": 0.07,
+          "orbit": 0.10500000000000001,
+          "birth": false
+        },
+        {
+          "name": "天卫四",
+          "english": "Oberon",
+          "theme": "CrystalDesert",
+          "radius": 200,
+          "orbit_base": 0.13,
+          "orbit": 0.195,
+          "birth": false
+        }
+      ]
+    },
+    {
+      "name": "海王星",
+      "english": "Neptune",
+      "theme": "IceGiant2",
+      "radius": 1200,
+      "orbit_base": 30.069,
+      "orbit": 45.1035,
+      "color": "#729acb",
+      "moons": [
+        {
+          "name": "海卫一",
+          "english": "Triton",
+          "theme": "IceGelisol",
+          "radius": 200,
+          "orbit_base": 0.08,
+          "orbit": 0.12,
+          "birth": false
+        }
+      ]
+    },
+    {
+      "name": "冥王星",
+      "english": "Pluto",
+      "theme": "IceGelisol",
+      "radius": 50,
+      "orbit_base": 39.482,
+      "orbit": 59.223,
+      "color": "#c7bed6",
+      "moons": [
+        {
+          "name": "卡戎",
+          "english": "Charon",
+          "theme": "IceGelisol2",
+          "radius": 50,
+          "orbit_base": 0.025,
+          "orbit": 0.037500000000000006,
+          "birth": false
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "projection": "linear",
+    "shown_primaries": [
+      "Mercury",
+      "Venus",
+      "Earth",
+      "Mars",
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "main_pixels_per_game_orbit": 8.64677907479464,
+    "inner_pixels_per_game_orbit": 122.48468941382328,
+    "inset_magnification": 14.16535433070866,
+    "body_sizes": "illustrative",
+    "phases": "illustrative"
+  }
+}

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="960" viewBox="0 0 1800 960">
+<title>Solar System orbits — linear distance scale</title>
+<desc>The eight major planetary orbits use a linear distance scale. The inner four planets are repeated in a separately enlarged view with its magnification labeled. Body sizes and orbital phases are illustrative.</desc>
+<rect width="100%" height="100%" fill="#091722"/>
+<text x="64" y="72" font-size="28" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">太阳系轨道 / Solar System</text>
+<text x="64" y="147" font-size="19" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">内侧轨道 · 放大 ×14.2</text>
+<text x="810" y="147" font-size="18" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">全尺度 / FULL SCALE</text>
+<ellipse cx="340" cy="510" rx="71.10236220472441" ry="71.10236220472441" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="340" cy="510" rx="132.83464566929135" ry="132.83464566929135" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="340" cy="510" rx="183.7270341207349" ry="183.7270341207349" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="340" cy="510" rx="280.0" ry="280.0" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="340" cy="510" rx="7" ry="7" fill="#e6b77e" stroke="#e6b77e" stroke-width="1"/>
+<text x="340" y="545" font-size="18" fill="#e6b77e" text-anchor="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">太阳</text>
+<ellipse cx="1210" cy="510" rx="5.019455252918289" ry="5.019455252918289" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="9.377431906614788" ry="9.377431906614788" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="12.97016861219196" ry="12.97016861219196" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="19.76653696498055" ry="19.76653696498055" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="67.48378728923478" ry="67.48378728923478" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="123.69649805447474" ry="123.69649805447474" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="248.91050583657588" ry="248.91050583657588" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="390.00000000000006" ry="390.00000000000006" fill="none" stroke="#496574" stroke-width="2"/>
+<ellipse cx="1210" cy="510" rx="7" ry="7" fill="#e6b77e" stroke="#e6b77e" stroke-width="1"/>
+<text x="1210" y="545" font-size="18" fill="#e6b77e" text-anchor="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">太阳</text>
+<ellipse cx="278.42354806162615" cy="474.4488188976378" rx="7" ry="7" fill="#b4b5ab" stroke="#b4b5ab" stroke-width="1"/>
+<text x="262.42354806162615" y="467.4488188976378" font-size="22" fill="#edf3f1" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">水星</text>
+<text x="262.42354806162615" y="492.4488188976378" font-size="15" fill="#94acb7" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Mercury</text>
+<ellipse cx="374.3801361486577" cy="638.3084148779259" rx="7" ry="7" fill="#d9c19b" stroke="#d9c19b" stroke-width="1"/>
+<text x="391.3801361486577" y="653.3084148779259" font-size="22" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">金星</text>
+<text x="391.3801361486577" y="678.3084148779259" font-size="15" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Venus</text>
+<ellipse cx="458.09746109726444" cy="369.2569264610801" rx="7" ry="7" fill="#72c5bf" stroke="#72c5bf" stroke-width="1"/>
+<text x="475.09746109726444" y="364.2569264610801" font-size="22" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">地球</text>
+<text x="475.09746109726444" y="389.2569264610801" font-size="15" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Earth</text>
+<ellipse cx="125.5075559266862" cy="689.980530712231" rx="7" ry="7" fill="#d38c6f" stroke="#d38c6f" stroke-width="1"/>
+<text x="142.5075559266862" y="707.980530712231" font-size="22" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">火星</text>
+<text x="142.5075559266862" y="732.980530712231" font-size="15" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Mars</text>
+<ellipse cx="1154.7205176856598" cy="548.7071102248312" rx="12" ry="12" fill="#e6b77e" stroke="#e6b77e" stroke-width="1"/>
+<text x="1134.7205176856598" y="543.7071102248312" font-size="22" fill="#edf3f1" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">木星</text>
+<text x="1134.7205176856598" y="568.7071102248312" font-size="15" fill="#94acb7" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Jupiter</text>
+<ellipse cx="1108.6737607472878" cy="439.0506034568103" rx="10" ry="10" fill="#d4bd94" stroke="#d4bd94" stroke-width="1"/>
+<ellipse cx="1108.6737607472878" cy="439.0506034568103" rx="17" ry="5" fill="none" stroke="#e6b77e" stroke-width="2"/>
+<text x="1084.6737607472878" y="427.0506034568103" font-size="22" fill="#edf3f1" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">土星</text>
+<text x="1084.6737607472878" y="452.0506034568103" font-size="15" fill="#94acb7" text-anchor="end" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Saturn</text>
+<ellipse cx="1413.8955497010381" cy="652.7692009080795" rx="9" ry="9" fill="#90cad4" stroke="#90cad4" stroke-width="1"/>
+<text x="1433.8955497010381" y="649.7692009080795" font-size="22" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">天王星</text>
+<text x="1433.8955497010381" y="674.7692009080795" font-size="15" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Uranus</text>
+<ellipse cx="1405.0" cy="172.25009252406892" rx="9" ry="9" fill="#729acb" stroke="#729acb" stroke-width="1"/>
+<text x="1423.0" y="159.25009252406892" font-size="22" fill="#edf3f1" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">海王星</text>
+<text x="1423.0" y="184.25009252406892" font-size="15" fill="#94acb7" text-anchor="start" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">Neptune</text>
+<text x="900" y="929" font-size="18" fill="#94acb7" text-anchor="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif">各视图内轨道半径为线性比例；天体大小和轨道相位仅作示意。</text>
+</svg>
