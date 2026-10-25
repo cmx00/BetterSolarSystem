@@ -1,6 +1,6 @@
 {
   "name": "BetterSolarSystem",
-  "version_number": "3.2.0",
+  "version_number": "3.3.0",
   "website_url": "https://github.com/cmx00/BetterSolarSystem",
   "description": "A Solar System start with real orbital-distance ratios, radius-200 construction worlds, revised resources and Dark Fog adjustments.",
   "dependencies": [

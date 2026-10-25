@@ -24,15 +24,15 @@ namespace BetterSolarSystem
             cargoMultiplier = config.Bind(travel, "Carrier cargo multiplier / 补给容量倍率", 2, new ConfigDescription("Load, source debit and dispatch threshold use the same multiplier. / 装载、扣款与门槛同步。", new AcceptableValueRange<int>(1, 10)));
             sailMultiplier = config.Bind(travel, "Sail lifetime multiplier / 帆寿命倍率", 4f, new ConfigDescription("Newly emitted sails; existing expiry timestamps are preserved. / 新发射生效。", new AcceptableValueRange<float>(1f, 10f)));
         }
-        public static float FleetMultiplier() => fleetMultiplier?.Value ?? 2f;
-        public static float CarrierLimit() => 1800f * (carrierMultiplier?.Value ?? 2f);
-        public static int MatterCapacity() => 6000 * (cargoMultiplier?.Value ?? 2);
-        public static int EnergyCapacity() => 5000000 * (cargoMultiplier?.Value ?? 2);
-        public static float SailMultiplier() => sailMultiplier?.Value ?? 4f;
+        public static float FleetMultiplier() => BalancePresets.Travel(fleetMultiplier?.Value ?? 2f, 2f);
+        public static float CarrierLimit() => 1800f * BalancePresets.Travel(carrierMultiplier?.Value ?? 2f, 2f);
+        public static int MatterCapacity() => 6000 * (int)BalancePresets.Travel(cargoMultiplier?.Value ?? 2, 2);
+        public static int EnergyCapacity() => 5000000 * (int)BalancePresets.Travel(cargoMultiplier?.Value ?? 2, 2);
+        public static float SailMultiplier() => BalancePresets.Travel(sailMultiplier?.Value ?? 4f, 4f);
         public static void Apply(Harmony harmony)
         {
             var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-            if (fogEnabled == null || fogEnabled.Value) {
+            if (BalancePresets.TravelEnabled(fogEnabled == null || fogEnabled.Value)) {
             foreach (var method in typeof(EnemyUnitComponent).GetMethods(flags))
                 if ((method.Name.Contains("_Space") || method.Name.Contains("_SLancer") || method.Name.Contains("_SHumpback") || method.Name.Contains("_SFortress")) &&
                     PatchProcessor.GetOriginalInstructions(method).Any(IsMovementField))
@@ -44,7 +44,7 @@ namespace BetterSolarSystem
             // Change consumers, never the serialized history field. Load/save and
             // technology upgrades cannot compound the multiplier. Existing sail
             // expiry timestamps remain intact; newly emitted sails use 4x life.
-            if (sailsEnabled == null || sailsEnabled.Value) foreach (var type in new[] { typeof(DysonSwarm), typeof(DysonSphereLayer), typeof(PlayerMove_Sail), typeof(ItemProto), typeof(UIDESphereInfo), typeof(UIDESwarmOrbitInfo), typeof(UITechTree), typeof(UIStatisticDysonSphereGraph) })
+            if (BalancePresets.TravelEnabled(sailsEnabled == null || sailsEnabled.Value)) foreach (var type in new[] { typeof(DysonSwarm), typeof(DysonSphereLayer), typeof(PlayerMove_Sail), typeof(ItemProto), typeof(UIDESphereInfo), typeof(UIDESwarmOrbitInfo), typeof(UITechTree), typeof(UIStatisticDysonSphereGraph) })
                 foreach (var method in type.GetMethods(flags | BindingFlags.DeclaredOnly))
                     if (method.GetMethodBody() != null && ReadsSailLife(method))
                         harmony.Patch(method, transpiler: new HarmonyMethod(typeof(RuntimeBalance), nameof(SailLife)));

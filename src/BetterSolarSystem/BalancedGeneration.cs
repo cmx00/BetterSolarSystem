@@ -340,8 +340,48 @@ namespace BetterSolarSystem
             for (int i = 0; i < groups; i++) vt.veins.Add(new GSVein(count, richness));
         }
 
+        private static void SetVein(GSPlanet body, EVeinType kind, int groups, int count, float richness)
+        {
+            body.veinSettings.VeinTypes.RemoveAll(v => v.type == kind);
+            EnsureVein(body, kind, groups, count, richness);
+        }
+
+        internal static void ApplySolarResourceRoles(GSPlanet body, bool birth)
+        {
+            // All changes run before resource normalization, only for a fresh galaxy.
+            // Starter Si/Ti are finite samples; the outer moons supply sustained industry.
+            if (birth)
+            {
+                body.veinSettings.VeinTypes.RemoveAll(v => (int)v.type > 7);
+                SetVein(body, EVeinType.Silicium, 1, 16, .35f);
+                SetVein(body, EVeinType.Titanium, 1, 16, .35f);
+                SetVein(body, EVeinType.Bamboo, 1, 16, .45f);
+                EnsureVein(body, EVeinType.Iron, 6, 20, .8f);
+                EnsureVein(body, EVeinType.Copper, 4, 20, .8f);
+                EnsureVein(body, EVeinType.Coal, 4, 20, .8f);
+                EnsureVein(body, EVeinType.Stone, 4, 20, .7f);
+                EnsureVein(body, EVeinType.Oil, 6, 1, .7f);
+            }
+            else if (body.Name == GanymedeName)
+            {
+                SetVein(body, EVeinType.Fireice, 3, 20, .9f);
+                SetVein(body, EVeinType.Grat, 2, 20, .8f);
+            }
+            else if (body.Name == CallistoName)
+            {
+                SetVein(body, EVeinType.Silicium, 3, 20, 1f);
+                SetVein(body, EVeinType.Titanium, 3, 20, 1f);
+                SetVein(body, EVeinType.Fractal, 2, 20, .8f);
+            }
+            else if (body.Name == "地球")
+            {
+                EnsureVein(body, EVeinType.Bamboo, 2, 20, .8f);
+                EnsureVein(body, EVeinType.Crysrub, 2, 20, .8f);
+            }
+        }
+
         private static int BaseNodeBudget(GSPlanet body) => body.Radius == 50 ? 80 :
-            (body.Name == GSSettings.BirthPlanetName ? 384 : 420);
+            (body.genData?.Get("birthPlanet")?.Bool(false) == true ? 384 : 420);
         public static int NodeBudget(GSPlanet body) => BaseNodeBudget(body) * (body.Radius == 300 ? 2 : 1);
 
         public static int Nodes(GSPlanet body)
@@ -484,10 +524,12 @@ namespace BetterSolarSystem
                         }
                         if (star == GSSettings.BirthStar && body.Name == CallistoName)
                             EnsureVein(body, EVeinType.Fractal, 2, 20, .8f);
+                        if (star == GSSettings.BirthStar) ApplySolarResourceRoles(body, body == birth);
                         NormalizeResources(body);
                     }
             AddMarker(SaveMarker); AddMarker(ResourceMarker); AddMarker(SunMarker); AddMarker(LayoutMarker); AddMarker("LivingWorlds.Generation.v1");
             AddMarker("BetterSolarSystem.Surface.v3.1");
+            AddMarker("BetterSolarSystem.Resources.v3.3");
             Validate();
         }
 

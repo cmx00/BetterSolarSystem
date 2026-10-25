@@ -1,8 +1,8 @@
 # BetterSolarSystem
 
-[简体中文](README.zh-CN.md) · 3.2.0 preview · Requires Galactic Scale
+[简体中文](README.zh-CN.md) · 3.3.0 preview · Requires Galactic Scale
 
-[Download 3.2.0](https://github.com/cmx00/BetterSolarSystem/releases/tag/v3.2.0)
+[Download 3.3.0](https://github.com/cmx00/BetterSolarSystem/releases/tag/v3.3.0)
 
 BetterSolarSystem is a Dyson Sphere Program mod built on Galactic Scale (GS2). It reworks the Solar System start, preserving the eight major planets' real orbital-distance ratios and giving the planets more space.
 
@@ -42,6 +42,21 @@ Extra resources are spread across Europa and other Jovian moons. The Solar Syste
 
 Starting deposits are spread across more directions to reduce concentration on one hemisphere.
 
+New galaxies keep limited silicon, titanium and organic-crystal samples on Europa. Ganymede supplies fire ice and optical grating crystals; Callisto supplies silicon, titanium and fractal silicon. Earth retains biological rare resources for later extraction. Existing deposits are not redistributed.
+
+## Balance presets
+
+Choose a preset in the configuration file, then restart:
+
+| Preset | Behavior |
+| --- | --- |
+| Recommended | Fresh-install default: 1.5× ground range, 4× space range, 1.25× signal coverage and 110m battlefield-base ranges; travel and sail adjustments below |
+| GalaxyOnly | Galaxy generation only; defense, Dark Fog travel and sail balance patches are not installed |
+| EnhancedDefense | 1.5× ground range, 4× space range, 2× signal coverage and 110m base ranges; recommended travel and sail settings |
+| Custom | Uses individual settings. Existing configurations select this preset and retain their values |
+
+Recommended and EnhancedDefense do not register global ground targets. Custom has separate ground, space and signal controls. Presets do not overwrite those settings.
+
 ## Dark Fog and defenses
 
 Wider orbits mean longer journeys for Dark Fog fleets and supply ships. At the original speeds, attacks and resupply would spend too much time in transit, so travel speeds and delivery capacities are increased.
@@ -59,6 +74,8 @@ Solar sails also last longer, reducing the number you need to keep launching to 
 Multipliers apply to the game's runtime baseline and may stack with other mods changing the same systems. Already launched sails keep their existing expiry times.
 
 ![Jupiter and its moons](assets/jovian-moons.jpg)
+
+For extended ground ranges, gauss and local-plasma projectile lifetimes track the effective range. Extended straight shots check planet curvature, terrain and vegetation. Missile guidance, cannon trajectories and collision rules remain intact.
 
 ## Other star systems
 
@@ -89,6 +106,6 @@ Disable older GS2Tweaks, Global Signal Tower and GS2GameCompat installations to 
 
 Normal solid-resource clusters contain 16–24 mining nodes; small bodies use 12–16. Radius-300 worlds receive twice as many clusters of each solid resource, without doubling individual oil-well flow. The oil target is 1.5–6/s before research bonuses.
 
-This preview is built against GS2 2.80.3. Targeted generation, naming and defense-target checks have passed. Full They Come From Void invasion combat still needs in-game validation; this mod does not change its invasion sequence.
+They Come From Void keeps its own invasion sequence. This mod changes travel and defense settings, not its wave progression.
 
 See [BUILDING.md](BUILDING.md) to build from source. Reports should include game and GS2 versions, generator, seed and screenshots. Source is under the [MIT License](LICENSE); code provenance and image rights are described in [NOTICE.md](NOTICE.md).

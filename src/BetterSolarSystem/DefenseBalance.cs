@@ -10,7 +10,8 @@ namespace BetterSolarSystem.Balance
 {
     public static class DefenseBalance
     {
-        private static ConfigEntry<float> range, plasmaRange, missileRange, pickRange, buildRange;
+        private static ConfigEntry<float> range, spaceRange, signalRange, plasmaRange, missileRange, pickRange, buildRange;
+        private static readonly ConcurrentDictionary<PrefabDesc, float> nativeGroundRanges = new ConcurrentDictionary<PrefabDesc, float>();
         private static ConfigEntry<bool> signals, plasma;
         private static volatile float effectivePlasmaReach = 26000f;
         private static readonly ConcurrentDictionary<int, PlanetState> planets = new ConcurrentDictionary<int, PlanetState>();
@@ -41,22 +42,26 @@ namespace BetterSolarSystem.Balance
 
         public static void Initialize(ConfigFile config, Harmony harmony)
         {
-            range = ConfigMigration.BindDefense(config, "1. 范围增强", "全局范围倍率(其他炮塔/信号塔)", 4f, RangeDescription());
+            range = ConfigMigration.BindDefense(config, "1. 范围增强", "全局范围倍率(其他炮塔/信号塔)", 1.5f,
+                "Ground range in Custom. Historical key retained; space and signal settings below are independent. / Custom 地面射程，保留旧键名；对空和信号范围在下方独立设置。");
+            spaceRange = config.Bind("Balance - Defense / 防御 - 1. 范围增强", "Space range multiplier / 对空射程倍率", BalancePresets.Current == BalancePreset.Custom ? range.Value : 4f, RangeDescription());
+            signalRange = config.Bind("Balance - Defense / 防御 - 1. 范围增强", "Signal radius multiplier / 信号覆盖倍率", range.Value, RangeDescription());
             plasmaRange = ConfigMigration.BindDefense(config, "1. 范围增强", "电浆炮对天射程倍率", 4f, RangeDescription());
             missileRange = ConfigMigration.BindDefense(config, "1. 范围增强", "导弹塔额外对天倍率", 1f, RangeDescription());
-            pickRange = ConfigMigration.BindDefense(config, "2. 战场基站", "拾取范围", 600f, new ConfigDescription("", new AcceptableValueRange<float>(100f, 700f)));
-            buildRange = ConfigMigration.BindDefense(config, "2. 战场基站", "建造范围", 600f, new ConfigDescription("", new AcceptableValueRange<float>(50f, 700f)));
+            pickRange = ConfigMigration.BindDefense(config, "2. 战场基站", "拾取范围", 110f, new ConfigDescription("", new AcceptableValueRange<float>(100f, 700f)));
+            buildRange = ConfigMigration.BindDefense(config, "2. 战场基站", "建造范围", 110f, new ConfigDescription("", new AcceptableValueRange<float>(50f, 700f)));
             signals = ConfigMigration.BindDefense(config, "3. 开关", "启用全局标记", true, "Registers ground targets only on planets with a signal tower.");
             plasma = ConfigMigration.BindDefense(config, "3. 开关", "启用电浆炮增强", true, "Enables extended plasma targeting.");
             ConfigMigration.BindDefense(config, "4. 性能优化", "标记逻辑使用内层锁", false, "Legacy key retained; each planet cache now owns its synchronization.");
-            Enabled = config.Bind("Balance - Modules / 平衡模块", "Defense / 防御增强", true, "Restart required. / 修改后重启。").Value;
-            foreach (var entry in new[] { range, plasmaRange, missileRange, pickRange, buildRange }) entry.SettingChanged += (sender, args) => ApplyRanges();
+            Enabled = BalancePresets.DefenseEnabled(config.Bind("Balance - Modules / 平衡模块", "Defense / 防御增强", true, "Custom preset; restart required. / Custom 预设下生效，修改后重启。").Value);
+            foreach (var entry in new[] { range, spaceRange, signalRange, plasmaRange, missileRange, pickRange, buildRange }) entry.SettingChanged += (sender, args) => ApplyRanges();
             if (!Enabled) return;
             foreach (var type in new[] { typeof(LoadRanges), typeof(ResetSession), typeof(RefreshGroundSignals), typeof(SupplementSearch), typeof(ScaledPlanetRadius), typeof(PlasmaFlight), typeof(RetiredEnemy) })
                 harmony.CreateClassProcessor(type).Patch();
+            GroundFireSafety.Apply(harmony);
         }
         private static ConfigDescription RangeDescription() => new ConfigDescription("Applied from the original prototype value.", new AcceptableValueRange<float>(1f, 10f));
-        public static void Shutdown() { Enabled = false; planets.Clear(); stars.Clear(); incarnations.Clear(); baselines.Clear(); }
+        public static void Shutdown() { Enabled = false; planets.Clear(); stars.Clear(); incarnations.Clear(); baselines.Clear(); nativeGroundRanges.Clear(); }
         public static void Tick() { } // Simulation work follows game ticks, including remote factories.
         private static PlanetState State(PlanetFactory factory)
         {
@@ -83,12 +88,13 @@ namespace BetterSolarSystem.Balance
                 if (descriptor.isTurret)
                 {
                     bool isPlasma = descriptor.turretType == ETurretType.Plasma;
-                    descriptor.turretMaxAttackRange = isPlasma ? original.Space * plasmaRange.Value : original.Ground * range.Value;
-                    descriptor.turretSpaceAttackRange = original.Space * (isPlasma ? plasmaRange.Value : range.Value * (descriptor.turretType == ETurretType.Missile ? missileRange.Value : 1f));
+                    nativeGroundRanges[descriptor] = original.Ground;
+                    descriptor.turretMaxAttackRange = isPlasma ? original.Space * BalancePresets.Space(plasmaRange.Value) : original.Ground * BalancePresets.Ground(range.Value);
+                    descriptor.turretSpaceAttackRange = original.Space * (isPlasma ? BalancePresets.Space(plasmaRange.Value) : BalancePresets.Space(spaceRange.Value) * (descriptor.turretType == ETurretType.Missile && BalancePresets.Current == BalancePreset.Custom ? missileRange.Value : 1f));
                     if (isPlasma) { descriptor.turretPitchUpMax = 89f; descriptor.turretPitchDownMax = 0f; furthestPlasma = Math.Max(furthestPlasma, descriptor.turretSpaceAttackRange); }
                 }
-                if (descriptor.isBeacon) descriptor.beaconSignalRadius = original.Signal * range.Value;
-                if (descriptor.isBattleBase) { descriptor.battleBasePickRange = pickRange.Value; descriptor.constructionRange = buildRange.Value; }
+                if (descriptor.isBeacon) descriptor.beaconSignalRadius = original.Signal * BalancePresets.Signal(signalRange.Value);
+                if (descriptor.isBattleBase) { descriptor.battleBasePickRange = BalancePresets.Station(pickRange.Value); descriptor.constructionRange = BalancePresets.Station(buildRange.Value); }
             }
             effectivePlasmaReach = furthestPlasma > 0 ? furthestPlasma : 6500f * plasmaRange.Value;
             var factories = GameMain.data?.factories;
@@ -102,7 +108,7 @@ namespace BetterSolarSystem.Balance
                 {
                     var station = bases.buffer[i];
                     if (station == null || station.id != i) continue;
-                    station.pickRange = pickRange.Value; station.constructRange = buildRange.Value;
+                    station.pickRange = BalancePresets.Station(pickRange.Value); station.constructRange = BalancePresets.Station(buildRange.Value);
                 }
             }
         }
@@ -176,7 +182,7 @@ namespace BetterSolarSystem.Balance
         }
         private static void GroundSignals(PlanetFactory factory, long tick)
         {
-            if (!Enabled || !signals.Value || factory?.defenseSystem == null || factory.enemyPool == null) return;
+            if (!Enabled || !BalancePresets.GlobalSignals(signals.Value) || factory?.defenseSystem == null || factory.enemyPool == null) return;
             var beacons = factory.defenseSystem.beacons;
             bool hasTower = false;
             if (beacons?.buffer != null) for (int i = 1; i < Math.Min(beacons.cursor, beacons.buffer.Length); i++)
@@ -214,7 +220,18 @@ namespace BetterSolarSystem.Balance
         private static bool Finite(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
         private static int Incarnation(int id) { int value; return incarnations.TryGetValue(id, out value) ? value : 0; }
         private static void Retire(int id) { if (id > 0) incarnations.AddOrUpdate(id, 1, (key, prior) => unchecked(prior + 1)); }
-        internal static double PlasmaSpeed() => 20000d * (plasmaRange?.Value ?? 4f);
+        internal static double PlasmaSpeed() => 20000d * BalancePresets.Space(plasmaRange?.Value ?? 4f);
+        internal static float NativeGroundRange(PrefabDesc descriptor)
+        {
+            float value;
+            return descriptor != null && nativeGroundRanges.TryGetValue(descriptor, out value) ? value : descriptor?.turretMaxAttackRange ?? 0f;
+        }
+        internal static int GroundProjectileLife(int originalTicks, PrefabDesc descriptor)
+        {
+            float native = NativeGroundRange(descriptor);
+            double factor = native > 0f ? Math.Max(1d, descriptor.turretMaxAttackRange / native) : 1d;
+            return (int)Math.Min(int.MaxValue, Math.Ceiling(originalTicks * factor));
+        }
         internal static int FlightTicks(double reach, double speed) => Math.Max(300, (int)Math.Ceiling(reach / speed * 60d) + 120);
         internal static int PlasmaLife() => FlightTicks(effectivePlasmaReach, PlasmaSpeed());
         [HarmonyPatch(typeof(VFPreload), "InvokeOnLoadWorkEnded")]

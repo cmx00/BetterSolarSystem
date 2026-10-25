@@ -19,7 +19,7 @@ namespace BetterSolarSystem
     {
         public const string PluginGuid = "cmx.BetterSolarSystem";
         public const string PluginName = "BetterSolarSystem";
-        public const string PluginVersion = "3.2.0";
+        public const string PluginVersion = "3.3.0";
         internal static ManualLogSource Log;
         internal static ConfigEntry<float> VeinBaseRadius, VeinExponent;
         internal static ConfigEntry<bool> ScaleRareVeins, SanitizeLegacySaves;
@@ -29,6 +29,7 @@ namespace BetterSolarSystem
         private void Awake()
         {
             Log = Logger;
+            BalancePresets.Configure(Config);
             // These settings apply ONLY to migration of historical saves.
             VeinBaseRadius = ConfigMigration.BindLegacy(Config, "cmx.GS2Tweaks", "1 - Vein clusters / 矿团", "Base radius / 基准半径", 200f, "Legacy save repair only. New generation uses the balanced contract.");
             VeinExponent = ConfigMigration.BindLegacy(Config, "cmx.GS2Tweaks", "1 - Vein clusters / 矿团", "Exponent / 指数", 1f, "Legacy save repair only.");
@@ -67,7 +68,7 @@ namespace BetterSolarSystem
                 DefenseBalance.Shutdown();
                 Log.LogError("Defense balance failed; galaxy generation remains active. " + error);
             }
-            Log.LogInfo("BetterSolarSystem 3.2.0 enabled: galaxy generation, defense balance and travel balance.");
+            Log.LogInfo("BetterSolarSystem " + PluginVersion + " enabled; balance preset=" + BalancePresets.Current + ", defense=" + DefenseBalance.Enabled + ".");
         }
 
         private void Patch(Type type, string name, string prefix = null, string postfix = null)

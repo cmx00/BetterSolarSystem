@@ -25,3 +25,7 @@ Outputs / 输出：
 The build only writes to `artifacts`. Close the game before copying the outputs into a profile. The compatibility DLL belongs in `patchers`, not `plugins`.
 
 编译仅写入 `artifacts`。手动安装前先关闭游戏；兼容补丁 DLL 应放入 `patchers`。
+
+Run `verify.ps1` with the same arguments for focused preset, resource, projectile and targeting checks against local game assemblies. These checks do not launch the game; combat and save/reload still need in-game testing.
+
+用相同参数运行 `verify.ps1`，检查预设、资源、弹丸寿命和索敌。检查使用本机游戏程序集，不启动游戏；实际战斗和存档重载仍需进游戏确认。
